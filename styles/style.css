@@ -1,0 +1,22 @@
+body {
+	font-family: "Arial", Helvetica, sans-serif;
+}
+
+#container {
+	width: 960px;
+}
+
+#account_control {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+h1 {
+	color: #000000;
+}
+
+#content {
+	width: 100%;
+	float: left;
+}

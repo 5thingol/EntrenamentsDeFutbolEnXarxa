@@ -6,15 +6,15 @@
 
 <title>EDFEX </title>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
-<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<link rel="stylesheet" href="styles/style.css" type="text/css" />
+<link rel="stylesheet" href="styles/menubar.style.css" type="text/css" />
 
 <!-- <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js?ver=1.3.2'></script> -->
 </head>
 
 <body>
 
-<div id="page-wrap">
+<div id="container">
 
 <div id="header">
 
@@ -31,8 +31,6 @@
 
 </div>
 
+
 </div>
 
-<?php
-include_once "menubar.php";
-?>
