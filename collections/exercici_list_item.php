@@ -25,4 +25,10 @@
 		</td>
 		<td><?php echo $ex -> explicacio; ?></td>
 		<td><?php echo $ex -> consigna; ?></td>
+		<?php
+		if (isset($selectable) && $selectable) {
+			$form = "<td><form name=\"seleccionarexercici\" action=\"../forms/editentrenament.php\" method=\"POST\"><input type=\"submit\" name=\"" . $ex -> ID . "\" value=\"Seleccionar\"></form></td>";
+			echo $form;
+		}
+ ?>
 	</tr>

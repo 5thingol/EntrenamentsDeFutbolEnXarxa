@@ -1,13 +1,13 @@
 <?php
 
 class Exercici {
-	public $TECNICS = array("Conducció", "Protecció", "Entrada", "Regat", "Control_orientat", "Passada", "Xut", "Centrada", "Remat_de_cap", "Rebuig");
+	public static $TECNICS = array("Conducció", "Protecció", "Entrada", "Regat", "Control_orientat", "Passada", "Xut", "Centrada", "Remat_de_cap", "Rebuig");
 
-	public $TACTICS = array("Recolzament", "Marcatge", "Cobertura", "Desmarcada", "Ubicació_en_la_zona", "Amplitud", "Profunditat", "Crear_espais", "Ocupar_espais", "Pressing_individual", "Desdoblament_defensiu");
+	public static $TACTICS = array("Recolzament", "Marcatge", "Cobertura", "Desmarcada", "Ubicació_en_la_zona", "Amplitud", "Profunditat", "Crear_espais", "Ocupar_espais", "Pressing_individual", "Desdoblament_defensiu");
 
-	public $FISICS = array("Velocitat", "Resistència", "Força", "Flexibilitat");
+	public static $FISICS = array("Velocitat", "Resistència", "Força", "Flexibilitat");
 
-	public $EDATS = array("Escola", "Prebenjamí", "Benjamí", "Aleví", "Intantil", "Cadet", "Juvenil", "Senior");
+	public static $EDATS = array("Escola", "Prebenjamí", "Benjamí", "Aleví", "Intantil", "Cadet", "Juvenil", "Senior");
 
 	/**
 	 * int, id unic de l'exercici
@@ -89,16 +89,16 @@ class Exercici {
 		else
 			$this -> ID = NULL;
 		$this -> nom = htmlspecialchars($array['nom']);
-		foreach ($this->TECNICS as $value) {
+		foreach (self::$TECNICS as $value) {
 			$this -> contingutsTecnics[$value] = isset($array[$value]);
 		}
-		foreach ($this->TACTICS as $value) {
+		foreach (self::$TACTICS as $value) {
 			$this -> contingutsTactics[$value] = isset($array[$value]);
 		}
-		foreach ($this->FISICS as $value) {
+		foreach (self::$FISICS as $value) {
 			$this -> contingutsFisics[$value] = isset($array[$value]);
 		}
-		foreach ($this->EDATS as $value) {
+		foreach (self::$EDATS as $value) {
 			$this -> edats[$value] = isset($array[$value]);
 		}
 		$this -> durada = $array['durada'];
@@ -153,10 +153,10 @@ class Exercici {
 	public function rowToExercici($row) {
 		$this -> ID = (int)$row['IDEx'];
 		$this -> nom = $row['Nom'];
-		$this -> contingutsTecnics = $this -> stringToBoolArray($row, $this -> TECNICS);
-		$this -> contingutsTactics = $this -> stringToBoolArray($row, $this -> TACTICS);
-		$this -> contingutsFisics = $this -> stringToBoolArray($row, $this -> FISICS);
-		$this -> edats = $this -> stringToBoolArray($row, $this -> EDATS);
+		$this -> contingutsTecnics = $this -> stringToBoolArray($row, self::$TECNICS);
+		$this -> contingutsTactics = $this -> stringToBoolArray($row, self::$TACTICS);
+		$this -> contingutsFisics = $this -> stringToBoolArray($row, self::$FISICS);
+		$this -> edats = $this -> stringToBoolArray($row, self::$EDATS);
 		$this -> durada = (int)$row['Durada'];
 		$this -> material = $row['Material'];
 		$this -> explicacio = $row['Explicacio'];

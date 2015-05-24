@@ -20,7 +20,7 @@
 	$ctrlDB = new CtrlDB;
 	$exercicis = $ctrlDB -> getExercicis();
 	foreach ($exercicis as $ex) {
-		include "collections/exercici_list_item.php";
+	//	include "collections/exercici_list_item.php";
 	}
 ?>
 </table>

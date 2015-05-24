@@ -2,7 +2,7 @@
 include_once "../common/header.php";
 ?>
 
-<form name="editexercici" action="../submit.exercici.php" method="POST">
+<form name="editexercici" action="../post/submit.exercici.php" method="POST">
 	Nom de l'exercici
 	<input type="text" name="nom">
 	<br>
@@ -10,26 +10,25 @@ include_once "../common/header.php";
 	Continguts
 	<?php
 	include_once "../inc/class.exercici.inc.php";
-	$ex = new Exercici;
 	$checkbox = "
 	<input type=\"checkbox\" name=\"";
 	echo "<br>Tecnics";
-	foreach ($ex->TECNICS as $value) {
+	foreach (Exercici::$TECNICS as $value) {
 		$input = $checkbox . $value . "\" value=\"" . $value . "\">" . $value;
 		echo $input;
 	}
 	echo "<br>Tactics";
-	foreach ($ex->TACTICS as $value) {
+	foreach (Exercici::$TACTICS as $value) {
 		$input = $checkbox . $value . "\" value=\"" . $value . "\">" . $value;
 		echo $input;
 	}
 	echo "<br>Fisics";
-	foreach ($ex->FISICS as $value) {
+	foreach (Exercici::$FISICS as $value) {
 		$input = $checkbox . $value . "\" value=\"" . $value . "\">" . $value;
 		echo $input;
 	}
 	echo "<br><br>Edats";
-	foreach ($ex->EDATS as $value) {
+	foreach (Exercici::$EDATS as $value) {
 		$input = $checkbox . $value . "\" value=\"" . $value . "\">" . $value;
 		echo $input;
 	}
@@ -52,3 +51,7 @@ include_once "../common/header.php";
 	<br>
 	<input type="submit" value="Guardar">
 </form>
+
+<?php
+include_once "../common/footer.php";
+?>

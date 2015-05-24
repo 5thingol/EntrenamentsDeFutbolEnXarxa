@@ -1,10 +1,11 @@
 <?php
 
-include_once "inc/class.exercici.inc.php";
-include_once "inc/class.entrenament.inc.php";
+//$root = $_SERVER['DOCUMENT_ROOT'];
+$root = "/home/guillem/Dropbox/FIB/Quadri6/SLDS/EntrenamentsDeFutbolEnXarxa";
+include_once $root . "/inc/class.exercici.inc.php";
+include_once $root . "/inc/class.entrenament.inc.php";
 
-// Include site constants
-include_once "utilities/constants.inc.php";
+include_once $root . "/utilities/constants.inc.php";
 
 class CtrlDB {
 
@@ -43,6 +44,18 @@ class CtrlDB {
 		return $exercicis;
 	}
 
+	function getExercici($ID) {
+		$stm = $this -> db -> prepare("SELECT * FROM " . TABLE_EXERCICIS . " WHERE IDex=" . $ID . ";");
+		//$stm -> bindParam(':table', TABLE_EXERCICIS);
+		//$stm -> bindParam(':ex', $ex -> ID);
+		$stm -> execute();
+
+		$row = $stm -> fetch(PDO::FETCH_ASSOC);
+		$ex = new Exercici;
+		$ex -> rowToExercici($row);
+		return $ex;
+	}
+
 	function createDatabase() {
 		try {
 			$sql = "CREATE DATABASE IF NOT EXISTS " . DB_NAME;
@@ -55,21 +68,20 @@ class CtrlDB {
 
 	function createTables() {
 		try {
-			$ex = new Exercici;
 			$tecnics = "";
-			foreach ($ex->TECNICS as $value) {
+			foreach (Exercici::$TECNICS as $value) {
 				$tecnics .= $value . " boolean, ";
 			}
 			$tactics = "";
-			foreach ($ex->TACTICS as $value) {
+			foreach (Exercici::$TACTICS as $value) {
 				$tactics .= $value . " boolean, ";
 			}
 			$fisics = "";
-			foreach ($ex->FISICS as $value) {
+			foreach (Exercici::$FISICS as $value) {
 				$fisics .= $value . " boolean, ";
 			}
 			$edats = "";
-			foreach ($ex->EDATS as $value) {
+			foreach (Exercici::$EDATS as $value) {
 				$edats .= $value . " boolean, ";
 			}
 			/*					Tecnics varchar(255),
@@ -95,7 +107,6 @@ class CtrlDB {
 	}
 
 	function exerciciExists($ex) {
-		var_dump($ex);
 		if (!isset($ex -> ID))
 			return False;
 		$stm = $this -> db -> prepare("SELECT * FROM " . TABLE_EXERCICIS . " WHERE IDex=" . $ex -> ID . ';');
