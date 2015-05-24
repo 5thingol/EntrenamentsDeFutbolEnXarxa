@@ -1,9 +1,9 @@
 <?php
 
 class Exercici {
-	public $TECNICS = array("Conducció", "Protecció", "Entrada", "Regat", "Control orientat", "Passada", "Xut", "Centrada", "Remat de cap", "Rebuig");
+	public $TECNICS = array("Conducció", "Protecció", "Entrada", "Regat", "Control_orientat", "Passada", "Xut", "Centrada", "Remat_de_cap", "Rebuig");
 
-	public $TACTICS = array("Recolzament", "Marcatge", "Cobertura", "Desmarcada", "Ubicació de la zona", "Amplitud", "Profunditat", "Crear espais", "Ocupar espais", "Pressing individual", "Desdoblament defensiu");
+	public $TACTICS = array("Recolzament", "Marcatge", "Cobertura", "Desmarcada", "Ubicació_en_la_zona", "Amplitud", "Profunditat", "Crear_espais", "Ocupar_espais", "Pressing_individual", "Desdoblament_defensiu");
 
 	public $FISICS = array("Velocitat", "Resistència", "Força", "Flexibilitat");
 
@@ -122,36 +122,41 @@ class Exercici {
 
 	public function exerciciToString() {
 		$values = "\"" . $this -> nom . "\"";
-		$values .= ",\"" . $this -> arrayToString($this -> contingutsTecnics) . "\"";
-		$values .= ",\"" . $this -> arrayToString($this -> contingutsTactics) . "\"";
-		$values .= ",\"" . $this -> arrayToString($this -> contingutsFisics) . "\"";
-		$values .= ",\"" . $this -> arrayToString($this -> edats) . "\"";
+		$values .= "," . $this -> arrayToString($this -> contingutsTecnics);
+		$values .= "," . $this -> arrayToString($this -> contingutsTactics);
+		$values .= "," . $this -> arrayToString($this -> contingutsFisics);
+		$values .= "," . $this -> arrayToString($this -> edats);
 		$values .= ',' . $this -> durada;
 		$values .= ",\"" . $this -> material . "\"";
 		$values .= ",\"" . $this -> explicacio . "\"";
 		$values .= ",\"" . $this -> consigna . "\"";
+		var_dump($values);
 		return $values;
 	}
 
 	/**
-	 * Converts a string formed by 0 and 1 separated by commas into an array with $keys indexes,
-	 * and bool values indicating if in its position in $string there was a 1 or not
+	 * Selects for each value in $keys the value of $array and converts it from tynint to boolean
 	 */
-	public function stringToBoolArray($string, $keys) {
-		$aux = explode(',', $string);
-		for ($i = 0; $i < count($keys); $i++) {
-			$array[$keys[$i]] = $aux[$i];
+	public function stringToBoolArray($array, $keys) {
+		$aux = array();
+		foreach ($keys as $value) {
+			$aux[$value] = $array[$value] == 1;
 		}
-		return $array;
+		/*
+		 $aux = explode(',', $string);
+		 for ($i = 0; $i < count($keys); $i++) {
+		 $array[$keys[$i]] = $aux[$i];
+		 }*/
+		return $aux;
 	}
 
 	public function rowToExercici($row) {
 		$this -> ID = (int)$row['IDEx'];
 		$this -> nom = $row['Nom'];
-		$this -> contingutsTecnics = $this -> stringToBoolArray($row['Tecnics'], $this -> TECNICS);
-		$this -> contingutsTactics = $this -> stringToBoolArray($row['Tactics'], $this -> TACTICS);
-		$this -> contingutsFisics = $this -> stringToBoolArray($row['Fisics'], $this -> FISICS);
-		$this -> edats = $this -> stringToBoolArray($row['Edats'], $this -> EDATS);
+		$this -> contingutsTecnics = $this -> stringToBoolArray($row, $this -> TECNICS);
+		$this -> contingutsTactics = $this -> stringToBoolArray($row, $this -> TACTICS);
+		$this -> contingutsFisics = $this -> stringToBoolArray($row, $this -> FISICS);
+		$this -> edats = $this -> stringToBoolArray($row, $this -> EDATS);
 		$this -> durada = (int)$row['Durada'];
 		$this -> material = $row['Material'];
 		$this -> explicacio = $row['Explicacio'];

@@ -1,5 +1,5 @@
 	<tr>
-		<td><?php echo $ex -> ID; ?></td>
+		<td><?php echo $ex -> durada; ?></td>
 		<td><?php echo $ex -> nom; ?></td>
 		<td>
 			<?php
@@ -16,8 +16,10 @@
 		<td>
 			<?php
 			foreach ($ex->edats as $key => $value) {
-				if ($value)
+				if ($value) {
 					echo $key;
+					echo "<br>";
+				}
 			}
 			?>
 		</td>

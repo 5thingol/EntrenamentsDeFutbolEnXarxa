@@ -2,7 +2,7 @@
 include_once "../common/header.php";
 ?>
 
-<form name="editexercici" action="../index.php" method="POST">
+<form name="editexercici" action="../submit.exercici.php" method="POST">
 	Nom de l'exercici
 	<input type="text" name="nom">
 	<br>

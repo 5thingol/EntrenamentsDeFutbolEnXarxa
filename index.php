@@ -11,13 +11,13 @@ include_once "db/CtrlDB.php";
 $ctrlDB = new CtrlDB;
 $ctrlDB -> createDatabase();
 $ctrlDB -> createTables();
-include_once "postfunctions.php";
-?>
 
-<div id="content">
-	<?php
-	include_once "collections/exercicis_list.php";
-?>
-</div>
+// Mostrar tab adequada
+if(isset($_GET['t']) && $_GET['t'] == "elsmeusentrenaments") 
+	include_once "tabs/tab.my.entrenaments.php";
+else if(isset($_GET['t']) && $_GET['t'] == "elsmeusexercicis")
+	include_once "tabs/tab.my.exercicis.php";
+else 
+	include_once "tabs/tab.all.exercicis.php";
 
-<?php include_once "common/footer.php" ?>
+include_once "common/footer.php" ?>

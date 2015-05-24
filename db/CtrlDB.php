@@ -14,8 +14,8 @@ class CtrlDB {
 
 		// Create a database object
 		try {
-			$dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME;
-			$this -> db = new PDO($dsn, DB_USER, DB_PASS);
+			$dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8";
+			$this -> db = new PDO($dsn, DB_USER, DB_PASS, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
 			# We can now log any exceptions on Fatal error.
 			$this -> db -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -55,12 +55,30 @@ class CtrlDB {
 
 	function createTables() {
 		try {
+			$ex = new Exercici;
+			$tecnics = "";
+			foreach ($ex->TECNICS as $value) {
+				$tecnics .= $value . " boolean, ";
+			}
+			$tactics = "";
+			foreach ($ex->TACTICS as $value) {
+				$tactics .= $value . " boolean, ";
+			}
+			$fisics = "";
+			foreach ($ex->FISICS as $value) {
+				$fisics .= $value . " boolean, ";
+			}
+			$edats = "";
+			foreach ($ex->EDATS as $value) {
+				$edats .= $value . " boolean, ";
+			}
+			/*					Tecnics varchar(255),
+			 Tactics varchar(255),
+			 Fisics varchar(255),
+			 Edats varchar(255),
+			 */
 			$sql = "CREATE TABLE IF NOT EXISTS " . TABLE_EXERCICIS . "(IDEx int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-					Nom varchar(255) NOT NULL,
-					Tecnics varchar(255),
-					Tactics varchar(255),
-					Fisics varchar(255),
-					Edats varchar(255),
+					Nom varchar(255) NOT NULL," . $tecnics . $tactics . $fisics . $edats . "
 					Durada int NOT NULL,
 					Material varchar(255),
 					Explicacio varchar(255),
@@ -77,6 +95,7 @@ class CtrlDB {
 	}
 
 	function exerciciExists($ex) {
+		var_dump($ex);
 		if (!isset($ex -> ID))
 			return False;
 		$stm = $this -> db -> prepare("SELECT * FROM " . TABLE_EXERCICIS . " WHERE IDex=" . $ex -> ID . ';');
